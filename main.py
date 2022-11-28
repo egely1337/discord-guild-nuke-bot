@@ -14,7 +14,7 @@ conf = load(open("config.json"))
 init()
 
 def append_log(msg: str):
-    fd = open("log.txt", "a+")
+    fd = open("log.txt", mode="a+", encoding="utf-32")
     fd.write(msg + "\n")
     fd.close()
 
@@ -47,20 +47,20 @@ async def nuke(ctx: discord.ApplicationContext):
                 await i.ban() 
                 log_green("{} just banned!".format(i))
         except: 
-            log_red("An error occured while banning an user!")
+            log_red("An error occured while banning an user: {}".format(i.display_name))
     for i in channels:
         if i != this_channel:
             try: 
                 await i.delete()
                 log_green("{} just deleted!".format(i.name))
             except: 
-                log_red("An error occured while deleting channel!")
+                log_red("An error occured while deleting channel: {}".format(i.name))
     for i in roles: 
         try: 
             await i.delete()
             log_green("{} just deleted!".format(i.name))
         except: 
-            log_red("An error occured while deleting role!")
+            log_red("An error occured while deleting role: {}".format(i.name))
     log_green("Nuking ended")
 
 
